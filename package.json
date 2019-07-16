@@ -1,0 +1,29 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "Node reference guide",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobuid/node.git"
+  },
+  "keywords": [
+    "node",
+    "server"
+  ],
+  "author": "Jacob King",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jacobuid/node/issues"
+  },
+  "homepage": "https://github.com/jacobuid/node#readme",
+  "dependencies": {
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
+}
