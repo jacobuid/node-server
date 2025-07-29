@@ -37,7 +37,9 @@ app.get('/users/:id', async (req, res) => {
 app.post('/users', async (req, res) => {
     const user = req.body;
     const result = await db.collection('users').insertOne(user);
-    res.status(201).json(result.ops[0]);
+    // Fetch the inserted user to return the full document
+    const insertedUser = await db.collection('users').findOne({ _id: result.insertedId });
+    res.status(201).json(insertedUser);
 });
 
 // Update a user
@@ -81,7 +83,8 @@ app.post('/posts', async (req, res) => {
         userId: ObjectId(req.body.userId) // Ensure this is an ObjectId
     };
     const result = await db.collection('posts').insertOne(post);
-    res.status(201).json(result.ops ? result.ops[0] : post);
+    const insertedPost = await db.collection('posts').findOne({ _id: result.insertedId });
+    res.status(201).json(insertedPost);
 });
 
 // Update a post
@@ -112,11 +115,12 @@ app.get('/comments', async (req, res) => {
 app.post('/comments', async (req, res) => {
     const comment = {
         ...req.body,
-        userId: ObjectId(req.body.userId),   // Ensure this is an ObjectId
-        postId: ObjectId(req.body.postId)    // Ensure this is an ObjectId
+        userId: ObjectId(req.body.userId),
+        postId: ObjectId(req.body.postId)
     };
     const result = await db.collection('comments').insertOne(comment);
-    res.status(201).json(result.ops ? result.ops[0] : comment);
+    const insertedComment = await db.collection('comments').findOne({ _id: result.insertedId });
+    res.status(201).json(insertedComment);
 });
 
 // Get all messages
@@ -129,11 +133,12 @@ app.get('/messages', async (req, res) => {
 app.post('/messages', async (req, res) => {
     const message = {
         ...req.body,
-        fromUserId: ObjectId(req.body.fromUserId), // Ensure this is an ObjectId
-        toUserId: ObjectId(req.body.toUserId)      // Ensure this is an ObjectId
+        fromUserId: ObjectId(req.body.fromUserId),
+        toUserId: ObjectId(req.body.toUserId)
     };
     const result = await db.collection('messages').insertOne(message);
-    res.status(201).json(result.ops ? result.ops[0] : message);
+    const insertedMessage = await db.collection('messages').findOne({ _id: result.insertedId });
+    res.status(201).json(insertedMessage);
 });
 
 // Get all posts by a user
