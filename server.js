@@ -35,9 +35,9 @@ app.get('/users/:id', async (req, res) => {
 
 // Create a new user
 app.post('/users', async (req, res) => {
+    console.log(req.body); // Add this line
     const user = req.body;
     const result = await db.collection('users').insertOne(user);
-    // Fetch the inserted user to return the full document
     const insertedUser = await db.collection('users').findOne({ _id: result.insertedId });
     res.status(201).json(insertedUser);
 });
